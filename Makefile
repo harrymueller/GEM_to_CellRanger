@@ -1,8 +1,8 @@
 # MAKEFILE TO BUILD DUPLICATES PROJECT
-PROJECT	= GEMtoSlideSeq
-HEADERS	= main.h discovery.h
+PROJECT	= GEMtoCellRanger
+HEADERS	= main.h general.h process.h
 
-OBJ		= main.o discovery.o barcodes.o
+OBJ		= main.o barcodes.o counts.o discovery.o genes.o process.o
 
 CC		= cc
 CFLAGS	= -Wall -Werror
@@ -16,4 +16,4 @@ $(PROJECT) : $(OBJ)
 	$(CC) $(CFLAGS) -c $(LIBS) $<
 
 clean:
-	rm -f $(PROJECT) $(OBJ)
+	rm -f $(OBJ)

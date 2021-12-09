@@ -1,18 +1,19 @@
 /*
     First iteration through GEM file
         Get array of unique genes, and dimensions
-
-    @param dims = [min x, max x, min y, max y, num_genes]
 */
-#include "discovery.h"
+#include "general.h"
 
-int discovery()
+void get_words(char **, char *);
+void dimensions(int x, int y);
+
+void discovery(char **genes)
 {
-    FILE *fp = fopen(stats->filename, "r");
+    FILE *fp = fopen(files->gem_file, "r");
 
     if (!fp) {
-        printf("File not accessible.");
-        return 1;
+        printf("File '%s' is not accessible.\n", files->gem_file);
+        exit(EXIT_FAILURE);
     }
 
     char buffer[BUFF_SIZE], *words[4]; 
@@ -21,12 +22,12 @@ int discovery()
     char *temp = "";
     genes[0] = temp;
     char **last_gene = genes;
-    fgets(buffer, BUFF_SIZE, fp); // skip first line
 
+    fgets(buffer, BUFF_SIZE, fp); // skip first line
     while (fgets(buffer, BUFF_SIZE, fp)) {
         get_words(words, buffer);
 
-        // check that &buffer is different -> add &buffer to unique_genes
+        // check if gene is different -> adds to unique_genes
         if (strcmp(words[0], *last_gene) != 0) {
             last_gene++;
             *last_gene = strdup(words[0]);
@@ -37,11 +38,11 @@ int discovery()
         x = atoi(words[1]);
         y = atoi(words[2]);
 
-        //add_barcode(x, y);
         dimensions(x, y);
+        stats->nCounts++;
     }
 
-    return 0;
+    fclose(fp);
 }
 
 /*
@@ -60,22 +61,9 @@ void get_words(char **words, char *buffer)
     }
 }
 
-
-int check_genes_unique(char **genes) 
-{
-    char **ptr = genes;
-    int counter = 0;
-    while (*genes) { // loop through all genes
-        while (*ptr) { // checking ptr
-            if (genes != ptr && strcmp(*genes, *ptr) == 0) counter++;
-            ptr++;
-        }
-        genes++;
-    }
-
-    return counter;
-}
-
+/*
+    Changes values in dims if x || y is <||> current values
+*/
 void dimensions(int x, int y)
 {
         if (x < stats->dims->min_x) stats->dims->min_x = x;
