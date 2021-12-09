@@ -22,13 +22,14 @@ void counts(char **genes)
     char buffer[BUFF_SIZE], *words[4]; 
     int x, y, barcode_index, c;
 
-    // add info to start of mtx file
+    // add info to start of mtx filei
+    fprintf(wfp, "%%%%MatrixMarket matrix coordinate integer general\n");
     fprintf(wfp, "%% %s matrix file\n", files->label);
     fprintf(wfp, "%d %d %d\n", stats->nFeatures, stats->nBarcodes, stats->nCounts);
 
     char *current = "";
     current = strdup(current);
-    int gene_index = 1; // iterate from 1 
+    int gene_index = 0; // iterate from 1 
     fgets(buffer, BUFF_SIZE, fp); // skip first line
 
     while (fgets(buffer, BUFF_SIZE, fp)) {

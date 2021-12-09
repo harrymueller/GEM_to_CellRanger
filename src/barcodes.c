@@ -19,8 +19,8 @@ void round_dims()
     stats->dims->max_y = find_start(stats->dims->max_y);
 
     // calculate number of bins required for xs and ys
-    stats->dims->x_bins = (stats->dims->max_x - stats->dims->min_x) / stats->bin_size;
-    stats->dims->y_bins = (stats->dims->max_y - stats->dims->min_y) / stats->bin_size;
+    stats->dims->x_bins = (stats->dims->max_x - stats->dims->min_x) / stats->bin_size + 1;
+    stats->dims->y_bins = (stats->dims->max_y - stats->dims->min_y) / stats->bin_size + 1;
     
     stats->nBarcodes = stats->dims->x_bins * stats->dims->y_bins;
 }
