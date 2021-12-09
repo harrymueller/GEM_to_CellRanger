@@ -24,5 +24,5 @@ Converts a GEM file to a CellRanger format with a spatial file.
 
 ### Example Usage
 ```
-./GEMtoSlideSeq -i data/data-full.gem -o out -v -b 100 -l tongue4
+./GEMtoCellRanger -i data/data-full.gem -o out -v -b 100 -l tongue4
 ```
